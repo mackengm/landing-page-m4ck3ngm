@@ -17,6 +17,7 @@
 <body>
 {{ $directory := "themes/hugo-theme-lean-launch-page/static/" }}
 {{ $filename := "favicon.png" }}
+<div class="banner">
 {{ if (where (readDir $directory) "Name" $filename) }}
 	<img class="logo" src="/favicon.png" alt="Logo" />
 {{ end }}
@@ -28,20 +29,20 @@
 		{{ if isset .Site.Params "linkedin" }}<li><a href="{{ .Site.Params.linkedin }}"><i class="fa fa-linkedin"></i></a></li>{{ end }}
 		{{ if isset .Site.Params "github" }}<li><a href="{{ .Site.Params.github }}"><i class="fa fa-github"></i></a></li>{{ end }}
 	</ul>
-	{{ block "main" . }}
-	{{ end }}
 	<h1>{{ .Site.Title }}</h1>
 	<p>{{ .Site.Params.tagline }}</p>
 	{{ if isset .Site.Params "mailchimpurl" }}{{ partial "mailchimp-signup" . }}{{ end }}
-	<div id="benefits">
+</div>
+	<div id="sites">
 		{{ range where .Site.Pages "Section" "sites" }}
 		{{ if in .Path ".md" }}
-			<div>
-				<h2><i class="fa {{ .Params.icon }}"></i>{{ .Title }}</h2>
+			<div class="big-button">
+				<a href="{{ .Params.address }}"><i class="fa {{ .Params.icon }}"></i> {{ .Title }}</a>
 				{{ .Content }}
 			</div>
 		{{ end }}
 	{{ end }}
 	</div>
+  {{ partial "footer.html" . }}
 </body>
 </html>
